@@ -15,7 +15,6 @@ from collections import namedtuple
 
 import numpy as np
 import pandas as pd
-obsID = namedtuple('observation','Cluster Row')
 import datetime
 import matplotlib.pyplot as plt
 from sys import argv
@@ -292,6 +291,7 @@ clusters = [3,4,5]
 path = './data/'
 fileName = 'clusterData.txt'
 
+obsID = namedtuple('observation','Cluster Row')
 path += fileName
 stocks, Z, columnDict, days, dates  = getData(path)
 
