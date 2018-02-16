@@ -21,11 +21,7 @@ import matplotlib.pyplot as plt
 from sys import argv
 
 def getData(path):
-    path = '/home/brian/M462/Data/'
-    fileName = 'clusterData.txt'
-    #fileName = 'clusterDataLarge.txt'
-    
-    g = open('./'+fileName, 'r')
+    g = open(path, 'r')
     variables = g.readline().strip('\n').split(',')
     stocks = variables[1:]
     
@@ -293,7 +289,7 @@ def calculateClusterVariability(members, centroids, nClusters):
            and five clusters respectively.
 """
 clusters = [3,4,5]
-path = '/home/brian/M462/Data/'
+path = './data/'
 fileName = 'clusterData.txt'
 
 path += fileName
