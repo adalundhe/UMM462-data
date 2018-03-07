@@ -4,6 +4,7 @@
     02/16/2018
     M462 - Theoretical Data analytics
     Homework 1: Problems 1 and 2
+    Homework 2: Problems 2 and 4
 
 
     IMPORTANT: Please install pandas before running this
@@ -23,7 +24,7 @@ def getData(path):
     g = open(path, 'r')
     variables = g.readline().strip('\n').split(',')
     stocks = variables[1:]
-    
+
     dataDict = {}
     dateDict = {}
     data = g.read().split('\n')
@@ -37,13 +38,13 @@ def getData(path):
             dataDict[day] = x
         except(ZeroDivisionError):
             pass
-    
+
     days = list(dataDict.keys())
     nDays = len(dataDict)
-    nStocks = len(dataDict[days[0]]) 
+    nStocks = len(dataDict[days[0]])
     X = np.zeros(shape = (nStocks, nDays))
-    
-    
+
+
     ''' Fill the matrix with values. Warning: days are NOT necessarily ordered sequentially'''
     ''' Therefore, we put them in order, and then build the matrices in sequential order:'''
     orderedDays = sorted(days)
@@ -51,19 +52,19 @@ def getData(path):
     for i, day in enumerate(orderedDays):
         X[:, i] = dataDict[day]
         dates[i] = dateDict[day]
-    
-   
+
+
     ''' Scale each stock series to have mean 0 and standard deviation 1 '''
     ''' Using numpy, the operation: matrix / y divides each column of M by the corresponding element in y '''
 
-    print('X shape = ', np.shape(X))    
-    
+    print('X shape = ', np.shape(X))
+
     xTranspose = X.T
-    Z = ( (xTranspose - np.mean(xTranspose, axis=0)) / np.std(xTranspose, axis=0) ).T    
-    columnDict = {stock:i for i, stock in enumerate(stocks)}    
-    
-    return stocks, Z, columnDict, orderedDays, dates 
-    
+    Z = ( (xTranspose - np.mean(xTranspose, axis=0)) / np.std(xTranspose, axis=0) ).T
+    columnDict = {stock:i for i, stock in enumerate(stocks)}
+
+    return stocks, Z, columnDict, orderedDays, dates
+
 def plot(dataToPlot, dates):
     ''' Code for plotting  a time series '''
     ''' Set up time variable for x-axis '''
@@ -71,8 +72,8 @@ def plot(dataToPlot, dates):
     plt.figure(figsize=(10, 5))
     legend = []
     for i in range(len(dataToPlot)):
-        y = dataToPlot[i]    
-        plt.plot(x,y) 
+        y = dataToPlot[i]
+        plt.plot(x,y)
         legend.append('Cluster '+str(i))
     plt.xlabel('Date')
     plt.ylabel('Closing price ($)')
@@ -83,57 +84,117 @@ def plot(dataToPlot, dates):
 
 def calculateDay(string):
     ''' Day 0 = Dec 31, 2006 '''
-    year = int(string[:4]) - 2007                   
+    year = int(string[:4]) - 2007
     return time.strptime(string, "%Y-%m-%d").tm_yday + year*365
 
-def createInitialAssigments(Z, nClusters, stocks):
 
+def power_method(correlation_subset, numberOfInterations, numberToExtract):
+    """
+        Sean Corbett
+        Modification: HW 2, Problems 2 and 4
+
+        Notes: Added `power_method` function to calculate eigenvalues
+        and eigenvectors of stocks given correlation matrix, nubmer of
+        iterations and number of eigenvectors/eigenvalues to extract.
+    """
+
+    print("Running power method...")
+
+    p = correlation_subset.shape[0]
+
+    print('P:',p)
+    vectors = np.matrix(np.zeros(shape = (p, numberToExtract)))
+    values = np.zeros(shape = (numberToExtract, 1))
+    M = correlation_subset.copy()
+
+    for i in range(numberToExtract):
+        x = np.matrix(np.ones(shape = (p, 1) ))*np.sqrt(1/p)
+
+        for it in range(numberOfInterations):
+            norm = np.linalg.norm(x)
+            x = M*x/norm
+
+        vectors[:,i] = x/np.linalg.norm(x)
+        values[i] = vectors[:,i].T*correlation_subset*vectors[:,i]
+        M -= values[i][0] * vectors[:,i] * vectors[:,i].T
+
+    vectors = vectors
+
+    pcAcct = np.cumsum(values)/sum(np.diag(correlation_subset))
+    printString = ' '.join([str(round(100*pct,1)) for pct in pcAcct])
+
+    print('Cumulative percent accounted for: '+printString)
+    print("Power method complete...")
+
+    return values, vectors
+
+
+def createInitialAssigments(Z, nClusters, stocks):
+    """
+        Sean Corbett
+        Modification: HW 2, Problems 2 and 4
+
+        Notes: Added eigenvalue calculation of stock clusters and added
+               np.linalg.eig/power method eigenvector similarity calculation
+               and comparison.
+    """
     n, nDays = np.shape(Z)
-    ''' compute the mean of the last 100 days for each stock '''
-    means = np.mean(Z[:,nDays- 100:],axis = 1)
-    orderVector = np.argsort(means)
-    '''
-    print('Sorted stocks according to last 100 day mean:')
-    
-    for i in range(n):
-        print(stocks[orderVector[n-i-1]], '\t',means[orderVector[n-i-1]])
-    '''
-    ''' Initial assignments based on splitting the range of 100-day mean into intervals: '''
-    splits = [(i+1)*int(n/nClusters) for i in range(nClusters-1)]
-    splits.append(n)
-    
-    ''' Observations assigned to cluster: '''
-    initialAssignments = [0] * n
-    for i in range(n):
-        initialAssignments[orderVector[i]]  = sum([j*(splits[j-1] < i <= splits[j]) for j in range(1,nClusters)] )
+    values, vectors = [], []
+
+    C = (1/nDays)*np.matrix(Z)*np.matrix(Z.T)
+
+    iteration_value = 2
+    slice_size = 1000
+
+    correlation_subset = C[:slice_size,:slice_size]
+
+    while iteration_value <= 128:
+        power_method_values, power_method_vectors = power_method(correlation_subset, 128, 50)
+        values, vectors = np.linalg.eig(C[:slice_size,:slice_size])
+
+        similarity = 0.5*(1 - np.corrcoef(power_method_vectors.T, vectors)[0,1])
+
+        print('\nCosine Similarity for Power Series vs. Numpy:')
+        print('Number of Power Method Iterations:',iteration_value)
+        print('Similarity:',similarity,'\n')
+
+        iteration_value *=2
+
+    values.sort()
+    sortBy = np.argsort(np.linalg.eig(C)[0])
+    sortedStocks = list(np.asarray(stocks)[sortBy[::-1]])
+
+    quantile_cluster = pd.qcut(values, nClusters, labels=False)
+
+
 
     ''' For reference: save the cluster assignment and row location (i) for each stock'''
-    membershipDict = {stock : obsID(cluster, i) for i, (stock, cluster) in enumerate(zip(stocks, initialAssignments)) } 
+    membershipDict = {stock : obsID(cluster, i) for i, (stock, cluster) in enumerate(zip(sortedStocks, quantile_cluster)) }
     return membershipDict
 
 def centroidComputer(membershipDict, Z):
     ''' Computes the centroid for each cluster using the data in Z '''
     ''' Iterate over stocks and aggregate the series, then divide to get the means '''
-    
+
     ' Initialize empty dictionary :'''
-    centroidDict = dict.fromkeys(range(nClusters))  
-    
+    centroidDict = dict.fromkeys(range(nClusters))
+
     ''' identifier identifies the current cluster membership of a stock '''
     ''' and the row of Z containing the series for the stock '''
     for stock, identifier in membershipDict.items():
         center = centroidDict[identifier.Cluster]
-        
+
         try:
             center[0] += 1
             center[1] = [a+b for a, b in zip(center[1],Z[identifier.Row,:])]
-        except(TypeError): 
+        except(TypeError):
             center =[1, Z[identifier.Row,:]]
         centroidDict[identifier.Cluster] = center
-    
-    ''' Divide values by the number of members in the respective cluster: '''  
+
+    ''' Divide values by the number of members in the respective cluster: '''
     ''' centroidDict[i][0] is the number of members for cluster i '''
     ''' centroidDict[i][1] is the series of sums for cluster i '''
-    
+
     for i in range(nClusters):
         centroidDict[i][1] = [x/centroidDict[i][0] for x in centroidDict[i][1]]
     return centroidDict
@@ -145,22 +206,22 @@ def kMeansCusters(Z, membershipDict, centroidDict):
     xbar = np.mean(Z, axis = 0)
     totalSS = sum([sum((z-xbar)**2) for z in Z])
     print('\nObj fn = ',round(totalSS,1))
-    
+
     ''' Iterate until no observations (stocks) are relocated '''
     ''' Dumb algorithm --- rebuild the clusters according to the nearest centroid to '''
     ''' each observation '''
-    
+
     repeat = True
     while repeat == True:
         updateDict = {}
         ''' Iterate over stocks '''
         for stock, ID  in membershipDict.items():
             minDist = 1E5 # Initialize the minimum obs-to-cluster distance.
-            
+
             ''' Iterate over cluster and determine the nearest centroid/cluster'''
             for label, center in centroidDict.items():
                 centroid = center[1]
-                
+
                 """
                     Sean Corbett
                     Modification: HW 1, Problem 2
@@ -169,25 +230,25 @@ def kMeansCusters(Z, membershipDict, centroidDict):
                 zToCenDist = 0.5*(1 - np.corrcoef(Z[ID.Row,:], centroid)[0,1])
                 ''' Euclidean distance squared '''
                 # zToCenDist = sum((Z[ID.Row,:] - centroid)**2)
-                
-    
+
+
                 ''' Reassign membership if necessary:'''
-                if zToCenDist < minDist: 
+                if zToCenDist < minDist:
                     nearestCluster = label
-                    minDist = zToCenDist          
-                 
-            ''' Save the results for the stock'''       
-            updateDict[stock] = obsID(nearestCluster, ID.Row)     
-    
+                    minDist = zToCenDist
+
+            ''' Save the results for the stock'''
+            updateDict[stock] = obsID(nearestCluster, ID.Row)
+
         ''' Test whether there's been an update. '''
         ''' If so, recompute the centroids and the objective function '''
-        
+
         if membershipDict != updateDict:
             ''' MUST use copy. Otherwise membershipDict and updateDict share the same address '''
             membershipDict = updateDict.copy()
             ''' Recompute the centroids:'''
             centroidDict = centroidComputer( membershipDict, Z)
-            
+
             objFn = 0
             for cluster, row in membershipDict.values():
                 """
@@ -196,12 +257,12 @@ def kMeansCusters(Z, membershipDict, centroidDict):
                     Notes: Updated objective function to reflect sum of all cosine distances.
                 """
                 objFn += 0.5 * (1 - np.corrcoef(Z[row,:], centroidDict[cluster][1])[0,1])
-             
+
             print('UPDATE Obj fn = ', round(objFn,1))
         else:
-            repeat = False    
+            repeat = False
             print('No UPDATE')
-            
+
         for label, values in centroidDict.items():
             print('Cluster =', label,' Size = ',values[0])
     return membershipDict, centroidDict
@@ -222,10 +283,10 @@ def calculateClusterVariability(members, centroids, nClusters):
                  the ability to discern what larger market segments exist. That is to say, we
                  can no longer determine which stocks perform similarly over longer periods of
                  time within a wider market segment, hindering future analysis of stock performance
-                 behavior applicable to the larger industry or group of which a smaller segment 
-                 would otherwise be a member of. Then in clustring analysis, we ought primarily 
-                 aim to choose a lesser number of clusters, as to prevent over-segmentation of 
-                 data and allow future analyses to have enough members from each cluster to 
+                 behavior applicable to the larger industry or group of which a smaller segment
+                 would otherwise be a member of. Then in clustring analysis, we ought primarily
+                 aim to choose a lesser number of clusters, as to prevent over-segmentation of
+                 data and allow future analyses to have enough members from each cluster to
                  act upon.
     """
     intraDict, zToCenDist = dict.fromkeys([i for i in range(nClusters)], 0), 0
@@ -235,26 +296,26 @@ def calculateClusterVariability(members, centroids, nClusters):
     for stock, ID  in membershipDict.items():
         for label, center in centroidDict.items():
             centroid = center[1]
-            
+
             ''' cos distance '''
             cosDistance = 0.5*(1 - np.corrcoef(Z[ID.Row,:], centroid)[0,1])/nClusters
             intraDict[ID.Cluster] += cosDistance
             zToCenDist += cosDistance
             clusterData[ID.Cluster]['observationsPerCluster'] += 1
             clusterData[ID.Cluster]['stocks'].append(stock)
-            stocksData[stock]['cluster'] = ID.Cluster 
+            stocksData[stock]['cluster'] = ID.Cluster
             stocksData[stock]['observations'] += 1
 
     for cluster in clusterData:
         cluster['stocks'] = set(cluster['stocks'])
         cluster['numberOfMembers'] = len(cluster['stocks'])
-        
+
     data2Mtx = [sim for sim in list(intraDict.values())]
     intraDataFrame = pd.DataFrame(columns=['Variability'], data=data2Mtx, index=[i for i in range(0,nClusters)])
     intraDataFrame.index.name = 'Cluster'
 
 
-    stocksDataDict = {'Cluster': [stock['cluster'] for stock in stocksData.values()], 'Observations': [stock['observations'] for stock in stocksData.values()]} 
+    stocksDataDict = {'Cluster': [stock['cluster'] for stock in stocksData.values()], 'Observations': [stock['observations'] for stock in stocksData.values()]}
     stocksDataFrame = pd.DataFrame(data=stocksDataDict, columns=['Cluster','Observations'], index=[stockName for stockName in stocksData.keys()])
     stocksDataFrame.index.name = 'Stock'
     stocksDataFrame.sort_index(inplace=True)
@@ -276,15 +337,15 @@ def calculateClusterVariability(members, centroids, nClusters):
     print(stocksDataFrame)
     print("\n\n\n\n")
 
-        
 
-'''************************   Program starts here ************************'''         
+
+'''************************   Program starts here ************************'''
 
 """
     Sean Corbett
     Modification: HW 1, Problem 1
-    Notes: Changed main program code to repeatedly execute clustering 
-           as to compute intracluster variability over three, four, 
+    Notes: Changed main program code to repeatedly execute clustering
+           as to compute intracluster variability over three, four,
            and five clusters respectively.
 """
 clusters = [3,4,5]
@@ -325,6 +386,6 @@ sys.exit()
     # for stock, ID  in membershipDict.items():
     #             for label, center in centroidDict.items():
     #                 centroid = center[1]
-                    
+
     #                 ''' cos distance '''
     #                 #zToCenDist = 0.5*(1 - np.corrcoef(Z[ID.Row,:], centroid)[0,1])
