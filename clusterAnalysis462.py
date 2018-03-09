@@ -71,6 +71,7 @@ def plot(dataToPlot, dates):
     x = [datetime.datetime.strptime(x, "%Y-%m-%d") for x in dates]
     plt.figure(figsize=(10, 5))
     legend = []
+
     for i in range(len(dataToPlot)):
         y = dataToPlot[i]
         plt.plot(x,y)
@@ -101,8 +102,6 @@ def power_method(correlation_subset, numberOfInterations, numberToExtract):
     print("Running power method...")
 
     p = correlation_subset.shape[0]
-
-    print('P:',p)
     vectors = np.matrix(np.zeros(shape = (p, numberToExtract)))
     values = np.zeros(shape = (numberToExtract, 1))
     M = correlation_subset.copy()
@@ -118,8 +117,6 @@ def power_method(correlation_subset, numberOfInterations, numberToExtract):
         values[i] = vectors[:,i].T*correlation_subset*vectors[:,i]
         M -= values[i][0] * vectors[:,i] * vectors[:,i].T
 
-    vectors = vectors
-
     pcAcct = np.cumsum(values)/sum(np.diag(correlation_subset))
     printString = ' '.join([str(round(100*pct,1)) for pct in pcAcct])
 
@@ -128,6 +125,28 @@ def power_method(correlation_subset, numberOfInterations, numberToExtract):
 
     return values, vectors
 
+
+def calculateEigenvectorSimilarity(Z, iter_max, slice_size, subset_size):
+
+    correlation_subset = ((1/nDays)*np.matrix(Z)*np.matrix(Z.T))[:slice_size,:slice_size]
+    iteration_value = 2
+    result_similarity_pairs = []
+
+    while iteration_value <= iter_max:
+        power_method_values, power_method_vectors = power_method(correlation_subset, iteration_value, subset_size)
+        values, vectors = np.linalg.eig(Z[:slice_size,:slice_size])
+
+        similarity = 0.5*(1 - np.corrcoef(power_method_vectors.T, vectors[:subset_size])[0,1])
+
+        print('\nCosine Similarity for Power Series vs. Numpy:')
+        print('Number of Power Method Iterations:',iteration_value)
+        print('Similarity:',similarity,'\n')
+
+        result_similarity_pairs.append((iteration_value, similarity))
+
+        iteration_value *= 2
+
+    return result_similarity_pairs
 
 def createInitialAssigments(Z, nClusters, stocks):
     """
@@ -140,26 +159,9 @@ def createInitialAssigments(Z, nClusters, stocks):
     """
     n, nDays = np.shape(Z)
     values, vectors = [], []
-
     C = (1/nDays)*np.matrix(Z)*np.matrix(Z.T)
 
-    iteration_value = 2
-    slice_size = 1000
-
-    correlation_subset = C[:slice_size,:slice_size]
-
-    while iteration_value <= 128:
-        power_method_values, power_method_vectors = power_method(correlation_subset, 128, 50)
-        values, vectors = np.linalg.eig(C[:slice_size,:slice_size])
-
-        similarity = 0.5*(1 - np.corrcoef(power_method_vectors.T, vectors)[0,1])
-
-        print('\nCosine Similarity for Power Series vs. Numpy:')
-        print('Number of Power Method Iterations:',iteration_value)
-        print('Similarity:',similarity,'\n')
-
-        iteration_value *=2
-
+    values, vectors = np.linalg.eig(C)
     values.sort()
     sortBy = np.argsort(np.linalg.eig(C)[0])
     sortedStocks = list(np.asarray(stocks)[sortBy[::-1]])
@@ -355,8 +357,10 @@ fileName = 'clusterData.txt'
 obsID = namedtuple('observation','Cluster Row')
 path += fileName
 stocks, Z, columnDict, days, dates  = getData(path)
-
 n, nDays = np.shape(Z)
+
+calculateEigenvectorSimilarity(Z, 128, 1000, 50)
+
 print('N days = ', nDays, '\nN stocks = ', n,'\nZ shape = ',n,'X', nDays,'\n')
 nStocks = len(stocks)
 
@@ -366,7 +370,7 @@ for nClusters in clusters:
 
     ''' Compute centroids and plot a few '''
     centroidDict = centroidComputer( membershipDict, Z)
-    dataToPlot= [centroidDict[0][1],centroidDict[1][1],centroidDict[2][1]  ]
+    dataToPlot= [centroidDict[i][1] for i in range(nClusters)]
     plot(dataToPlot, dates)
 
     '''  Call the k-means function '''
@@ -377,7 +381,7 @@ for nClusters in clusters:
 
 
     ''' Plot the new centroids '''
-    dataToPlot= [centroidDict[0][1],centroidDict[1][1],centroidDict[2][1]  ]
+    dataToPlot= [centroidDict[i][1] for i in range(nClusters)]
     plot(dataToPlot, dates)
 
 sys.exit()
