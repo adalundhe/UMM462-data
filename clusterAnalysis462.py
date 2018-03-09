@@ -127,6 +127,14 @@ def power_method(correlation_subset, numberOfInterations, numberToExtract):
 
 
 def calculateEigenvectorSimilarity(Z, iter_max, slice_size, subset_size):
+    """
+        Sean Corbett
+        Modification: HW 4
+
+        Notes: Added `calculateEigenvectorSimilarity` function to calculate
+               cosine similarity between powerMethod calculated eigenvectors
+               and numpy calculated eigenvectors.
+    """
 
     correlation_subset = ((1/nDays)*np.matrix(Z)*np.matrix(Z.T))[:slice_size,:slice_size]
     iteration_value = 2
@@ -151,11 +159,9 @@ def calculateEigenvectorSimilarity(Z, iter_max, slice_size, subset_size):
 def createInitialAssigments(Z, nClusters, stocks):
     """
         Sean Corbett
-        Modification: HW 2, Problems 2 and 4
+        Modification: HW 2, Problem 2
 
-        Notes: Added eigenvalue calculation of stock clusters and added
-               np.linalg.eig/power method eigenvector similarity calculation
-               and comparison.
+        Notes: Added eigenvalue calculation of stock clusters.
     """
     n, nDays = np.shape(Z)
     values, vectors = [], []
@@ -359,6 +365,14 @@ path += fileName
 stocks, Z, columnDict, days, dates  = getData(path)
 n, nDays = np.shape(Z)
 
+"""
+    Sean Corbett
+    Modification: HW 2, Problem 4
+
+    Notes: Call `calculateEigenvectorSimilarity` below, which calculates (p)
+           eigenvectors of a (N x N) matrix of stock data based on subset of
+           the correlation matrix.
+"""
 calculateEigenvectorSimilarity(Z, 128, 1000, 50)
 
 print('N days = ', nDays, '\nN stocks = ', n,'\nZ shape = ',n,'X', nDays,'\n')
@@ -385,11 +399,3 @@ for nClusters in clusters:
     plot(dataToPlot, dates)
 
 sys.exit()
-
-    # intraDict = dict.fromkeys([i for i in range(nClusters)])
-    # for stock, ID  in membershipDict.items():
-    #             for label, center in centroidDict.items():
-    #                 centroid = center[1]
-
-    #                 ''' cos distance '''
-    #                 #zToCenDist = 0.5*(1 - np.corrcoef(Z[ID.Row,:], centroid)[0,1])
