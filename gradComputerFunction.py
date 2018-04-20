@@ -5,9 +5,7 @@ Created on Tue Apr 17 21:58:29 2018
 @author: brian
 """
 
-def gradientComputer_1(hList, gList, xList, zpList, dEdyhat):    
-    #L1 =  L2   = 0
-    penalty = 0
+def gradientComputerOne(hList, gList, xList, zpList, dEdyhat):    
     m = len(hList)
     s = dim(hList[m - 1])[1]
     for r in range(m-1, -1, -1):
