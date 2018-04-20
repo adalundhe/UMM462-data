@@ -5,7 +5,7 @@ Created on Tue Apr 17 21:58:29 2018
 @author: brian
 """
 
-def gradientComputerOne(hList, gList, xList, zpList, dEdyhat):    
+def gradientComputerTwo(hList, gList, xList, zpList, dEdyhat):    
     m = len(hList)
     s = dim(hList[m - 1])[1]
     for r in range(m-1, -1, -1):
