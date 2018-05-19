@@ -1,0 +1,218 @@
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	200	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	200	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	200	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Boston Housing Data: 	alpha: 0.001
+
+results: 0/10 	200	 r-sqr = 0.0	 obj = 0.98664
+
+
+Boston Housing Data: 	alpha: 0.01
+
+results: 0/10 	200	 r-sqr = 0.0	 obj = 0.98664
+
+
+Boston Housing Data: 	alpha: 0.1
+
+results: 0/10 	200	 r-sqr = 0.0	 obj = 0.98664
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Boston Housing Data----------
+
+
+Parkinsons Data: 	alpha: 0.001
+
+results: 0/10 	200	 r-sqr = 0.416	 r-sqr = 0.48	 obj = 1.28392
+
+
+Parkinsons Data: 	alpha: 0.01
+
+results: 0/10 	200	 r-sqr = 0.416	 r-sqr = 0.48	 obj = 1.28392
+
+
+Parkinsons Data: 	alpha: 0.1
+
+results: 0/10 	200	 r-sqr = 0.416	 r-sqr = 0.48	 obj = 1.28392
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Parkinsons Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 2.5541
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 2.5541
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 2.5541
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Boston Housing Data: 	alpha: 0.001
+
+results: 0/10 	500	 r-sqr = 0.0	 obj = 0.98664
+
+
+Boston Housing Data: 	alpha: 0.01
+
+results: 0/10 	500	 r-sqr = 0.0	 obj = 0.98664
+
+
+Boston Housing Data: 	alpha: 0.1
+
+results: 0/10 	500	 r-sqr = 0.0	 obj = 0.98664
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Boston Housing Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 0.67909
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 0.67909
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.35592
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	99	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 1/10 	99	 r-sqr = -0.0	 r-sqr = -0.0	 obj = 0.76339
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 1/10 	99	 r-sqr = -0.0	 r-sqr = 0.0	 obj = 2.22324
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 1/10 	99	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+----------FOLD: 2 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 2/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = -0.0
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 2/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = -0.0
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 2/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = -0.0
+
+
+----------FOLD: 3 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 3/10 	99	 r-sqr = -0.0	 r-sqr = 0.0	 obj = -0.0
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 3/10 	99	 r-sqr = -0.0	 r-sqr = 0.0	 obj = -0.0
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 3/10 	99	 r-sqr = -0.0	 r-sqr = 0.0	 obj = -0.0
+
+
+----------FOLD: 4 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 0.67791
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 0.678
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 0.67912
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 1/10 	99	 r-sqr = -0.0	 r-sqr = 0.0	 obj = 0.74808
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 1/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 0.74915
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = -0.0	 obj = 0.67909
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	99	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.35592
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	99	 r-sqr = nan	 r-sqr = nan	 obj = nan
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Breast Cancer Data: 	alpha: 0.001
+
+results: 1/10 	99	 r-sqr = -0.0	 r-sqr = -0.0	 obj = 0.76339
+
+

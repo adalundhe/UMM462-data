@@ -1,0 +1,54 @@
+Breast Cancer Data: 	alpha: 0.001
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 11.11417
+
+
+Breast Cancer Data: 	alpha: 0.01
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 11.11417
+
+
+Breast Cancer Data: 	alpha: 0.1
+
+results: 0/10 	500	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 11.11417
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Boston Housing Data: 	alpha: 0.001
+
+results: 0/10 	500	 r-sqr = 0.625	 obj = 0.3666
+
+
+Boston Housing Data: 	alpha: 0.01
+
+results: 0/10 	500	 r-sqr = 0.625	 obj = 0.3666
+
+
+Boston Housing Data: 	alpha: 0.1
+
+results: 0/10 	500	 r-sqr = 0.625	 obj = 0.3666
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Boston Housing Data----------
+
+
+Parkinsons Data: 	alpha: 0.001
+
+results: 0/10 	500	 r-sqr = 0.456	 r-sqr = 0.514	 obj = 1.16444
+
+
+Parkinsons Data: 	alpha: 0.01
+
+results: 0/10 	500	 r-sqr = 0.456	 r-sqr = 0.514	 obj = 1.16444
+
+
+Parkinsons Data: 	alpha: 0.1
+
+results: 0/10 	500	 r-sqr = 0.456	 r-sqr = 0.514	 obj = 1.16444
+
+
+----------FOLD: 1 COMPLETE FOR DATASET: Parkinsons Data----------
+
+

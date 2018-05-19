@@ -1,0 +1,159 @@
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 0/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28317
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 1/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28796
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 2/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.29411
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 3/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.29499
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 4/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28441
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 5/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28588
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 6/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.29061
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 7/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28441
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 8/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.29227
+
+
+Breast Cancer Data: 	alpha: 0.899981803671807
+
+results: 9/10 	9999	 r-sqr = 0.0	 r-sqr = 0.0	 obj = 1.28653
+
+
+----------FOLD: 10 COMPLETE FOR DATASET: Breast Cancer Data----------
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 0/10 	9999	 r-sqr = 0.618	 obj = 0.3804
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 1/10 	9999	 r-sqr = 0.655	 obj = 0.35465
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 2/10 	9999	 r-sqr = 0.678	 obj = 0.36759
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 3/10 	9999	 r-sqr = 0.671	 obj = 0.35364
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 4/10 	9999	 r-sqr = 0.0	 obj = 1.04731
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 5/10 	9999	 r-sqr = 0.728	 obj = 0.35646
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 6/10 	9999	 r-sqr = 0.783	 obj = 0.35541
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 7/10 	9999	 r-sqr = 0.664	 obj = 0.35589
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 8/10 	9999	 r-sqr = 0.71	 obj = 0.35685
+
+
+Boston Housing Data: 	alpha: 0.899981803671807
+
+results: 9/10 	9999	 r-sqr = 0.722	 obj = 0.36237
+
+
+----------FOLD: 10 COMPLETE FOR DATASET: Boston Housing Data----------
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 0/10 	9999	 r-sqr = 0.333	 r-sqr = 0.373	 obj = 1.47
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 1/10 	9999	 r-sqr = 0.384	 r-sqr = 0.392	 obj = 1.36583
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 2/10 	9999	 r-sqr = 0.354	 r-sqr = 0.367	 obj = 1.40237
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 3/10 	9999	 r-sqr = 0.304	 r-sqr = 0.282	 obj = 1.39903
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 4/10 	9999	 r-sqr = 0.383	 r-sqr = 0.409	 obj = 1.4132
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 5/10 	9999	 r-sqr = 0.381	 r-sqr = 0.387	 obj = 1.38748
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 6/10 	9999	 r-sqr = 0.318	 r-sqr = 0.339	 obj = 1.32029
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 7/10 	9999	 r-sqr = 0.415	 r-sqr = 0.428	 obj = 1.34393
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 8/10 	9999	 r-sqr = 0.361	 r-sqr = 0.376	 obj = 1.32062
+
+
+Parkinsons Data: 	alpha: 0.899981803671807
+
+results: 9/10 	9999	 r-sqr = 0.389	 r-sqr = 0.397	 obj = 1.33742
+
+
+----------FOLD: 10 COMPLETE FOR DATASET: Parkinsons Data----------
+
+
